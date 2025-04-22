@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>トムソンピアノ椅子 - 調査報告書</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* Base Styles */
+    :root {
+      --color-gold: #D4AF37;
+      --color-gold-light: #E9D18B;
+      --color-gold-dark: #9C7A24;
+      --color-cream: #FFF8E7;
+      --color-cream-dark: #F0E8D6;
+      --color-black: #212121;
+      --color-gray-dark: #424242;
+      --color-gray: #757575;
+      --color-gray-light: #BDBDBD;
+      --color-white: #FFFFFF;
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+      --transition-standard: all 0.3s ease;
+      --border-radius: 8px;
+      --spacing-xs: 4px;
+      --spacing-sm: 8px;
+      --spacing-md: 16px;
+      --spacing-lg: 24px;
+      --spacing-xl: 32px;
+      --spacing-xxl: 48px;
+      --spacing-xxxl: 64px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      color: var(--color-black);
+      background-color: var(--color-cream);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: var(--spacing-md);
+      color: var(--color-black);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: var(--spacing-lg);
+      position: relative;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-top: var(--spacing-xl);
+      margin-bottom: var(--spacing-lg);
+      padding-bottom: var(--spacing-sm);
+      position: relative;
+    }
+
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: var(--color-gold);
+      transition: var(--transition-standard);
+    }
+
+    h2:hover::after {
+      width: 100px;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-top: var(--spacing-lg);
+      margin-bottom: var(--spacing-md);
+      color: var(--color-gray-dark);
+    }
+
+    p {
+      margin-bottom: var(--spacing-md);
+    }
+
+    a {
+      color: var(--color-gold-dark);
+      text-decoration: none;
+      transition: var(--transition-standard);
+    }
+
+    a:hover {
+      color: var(--color-gold);
+      text-decoration: underline;
+    }
+
+    ul {
+      list-style-position: inside;
+      margin-bottom: var(--spacing-md);
+    }
+
+    li {
+      margin-bottom: var(--spacing-xs);
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-md);
+      transition: var(--transition-standard);
+    }
+
+    img:hover {
+      transform: scale(1.02);
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* Layout */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--spacing-md);
+    }
+
+    .section {
+      padding: var(--spacing-xxl) 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section:nth-child(odd) {
+      background-color: var(--color-white);
+    }
+
+    .section:nth-child(even) {
+      background-color: var(--color-cream);
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0 -15px;
+    }
+
+    .col {
+      flex: 1;
+      padding: 0 15px;
+      min-width: 0;
+    }
+
+    @media screen and (max-width: 768px) {
+      .row {
+        flex-direction: column;
+      }
+      .col {
+        margin-bottom: var(--spacing-lg);
+      }
+    }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background-color: rgba(255, 255, 255, 0.95);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition-standard);
+    }
+
+    .header.scrolled {
+      background-color: rgba(255, 255, 255, 0.98);
+      box-shadow: var(--shadow-md);
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 80px;
+      padding: 0 var(--spacing-md);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo-text {
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--color-black);
+      margin-right: var(--spacing-sm);
+    }
+
+    .logo-subtext {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 300;
+      font-size: 0.875rem;
+      color: var(--color-gray);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-list {
+      display: flex;
+      list-style: none;
+    }
+
+    .nav-item {
+      margin-left: var(--spacing-lg);
+      position: relative;
+    }
+
+    .nav-link {
+      font-size: 0.9rem;
+      color: var(--color-gray-dark);
+      font-weight: 500;
+      transition: var(--transition-standard);
+    }
+
+    .nav-link:hover {
+      color: var(--color-gold);
+      text-decoration: none;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--color-gold);
+      transition: var(--transition-standard);
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: var(--spacing-sm);
+      z-index: 1001;
+    }
+
+    .menu-icon {
+      width: 24px;
+      height: 20px;
+      position: relative;
+      transform: rotate(0deg);
+      transition: 0.5s ease-in-out;
+    }
+
+    .menu-icon span {
+      display: block;
+      position: absolute;
+      height: 2px;
+      width: 100%;
+      background: var(--color-black);
+      opacity: 1;
+      left: 0;
+      transform: rotate(0deg);
+      transition: 0.25s ease-in-out;
+    }
+
+    .menu-icon span:nth-child(1) {
+      top: 0px;
+    }
+
+    .menu-icon span:nth-child(2), .menu-icon span:nth-child(3) {
+      top: 9px;
+    }
+
+    .menu-icon span:nth-child(4) {
+      top: 18px;
+    }
+
+    .mobile-menu-btn.open .menu-icon span:nth-child(1) {
+      top: 9px;
+      width: 0%;
+      left: 50%;
+    }
+
+    .mobile-menu-btn.open .menu-icon span:nth-child(2) {
+      transform: rotate(45deg);
+    }
+
+    .mobile-menu-btn.open .menu-icon span:nth-child(3) {
+      transform: rotate(-45deg);
+    }
+
+    .mobile-menu-btn.open .menu-icon span:nth-child(4) {
+      top: 9px;
+      width: 0%;
+      left: 50%;
+    }
+
+    @media screen and (max-width: 768px) {
+      .nav-list {
+        display: none;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .nav-list.open {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        background-color: var(--color-white);
+        box-shadow: var(--shadow-md);
+        padding: var(--spacing-md) 0;
+        z-index: 1000;
+      }
+
+      .nav-item {
+        margin: var(--spacing-md) 0;
+        text-align: center;
+      }
+    }
+
+    /* Hero Section */
+    .hero {
+      padding-top: 120px;
+      padding-bottom: var(--spacing-xxl);
+      background: linear-gradient(135deg, var(--color-cream) 0%, var(--color-cream-dark) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://images.pexels.com/photos/164743/pexels-photo-164743.jpeg?auto=compress&cs=tinysrgb&w=1600');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.1;
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 600px;
+      margin-right: auto;
+    }
+
+    .hero-title {
+      font-size: 3rem;
+      margin-bottom: var(--spacing-md);
+      color: var(--color-black);
+      line-height: 1.2;
+      position: relative;
+    }
+
+    .hero-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 80px;
+      height: 4px;
+      background-color: var(--color-gold);
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: var(--color-gray-dark);
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .hero-btn {
+      display: inline-flex;
+      align-items: center;
+      padding: var(--spacing-md) var(--spacing-lg);
+      background-color: var(--color-gold);
+      color: var(--color-white);
+      border: none;
+      border-radius: var(--border-radius);
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition-standard);
+      text-decoration: none;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .hero-btn:hover {
+      background-color: var(--color-gold-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      text-decoration: none;
+    }
+
+    .hero-btn svg {
+      margin-left: var(--spacing-sm);
+    }
+
+    .hero-image {
+      position: relative;
+      z-index: 1;
+      max-width: 100%;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-lg);
+      transition: var(--transition-standard);
+    }
+
+    /* Cards */
+    .card-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: var(--spacing-lg);
+      margin-top: var(--spacing-lg);
+    }
+
+    .card {
+      background-color: var(--color-white);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+      transition: var(--transition-standard);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .card-header {
+      padding: var(--spacing-md);
+      border-bottom: 1px solid var(--color-cream-dark);
+      position: relative;
+    }
+
+    .card-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 30%;
+      height: 3px;
+      background-color: var(--color-gold);
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .card-description {
+      font-size: 0.875rem;
+      color: var(--color-gray);
+    }
+
+    .card-content {
+      padding: var(--spacing-md);
+    }
+
+    /* Tables */
+    .table-container {
+      overflow-x: auto;
+      margin: var(--spacing-lg) 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      box-shadow: var(--shadow-sm);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+    }
+
+    thead {
+      background-color: var(--color-gold-light);
+    }
+
+    th {
+      padding: var(--spacing-md);
+      text-align: left;
+      font-weight: 700;
+      color: var(--color-black);
+      border-bottom: 2px solid var(--color-gold);
+    }
+
+    td {
+      padding: var(--spacing-md);
+      border-bottom: 1px solid var(--color-cream-dark);
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:nth-child(even) {
+      background-color: var(--color-cream);
+    }
+
+    tr:hover {
+      background-color: var(--color-cream-dark);
+    }
+
+    /* Feature Lists */
+    .feature-list {
+      list-style: none;
+      margin: var(--spacing-lg) 0;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: var(--spacing-md);
+    }
+
+    .feature-title {
+      font-weight: 700;
+      margin-right: var(--spacing-sm);
+      min-width: 80px;
+    }
+
+    /* Footer */
+    .footer {
+      background-color: var(--color-black);
+      color: var(--color-white);
+      padding: var(--spacing-xl) 0;
+    }
+
+    .footer-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-copyright {
+      font-size: 0.875rem;
+      color: var(--color-gray-light);
+    }
+
+    .footer-links {
+      display: flex;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+
+    .footer-link {
+      margin-left: var(--spacing-md);
+    }
+
+    .footer-link a {
+      color: var(--color-gray-light);
+      font-size: 0.875rem;
+      transition: var(--transition-standard);
+    }
+
+    .footer-link a:hover {
+      color: var(--color-gold);
+      text-decoration: none;
+    }
+
+    @media screen and (max-width: 768px) {
+      .footer-container {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .footer-copyright {
+        margin-bottom: var(--spacing-md);
+      }
+
+      .footer-links {
+        justify-content: center;
+      }
+
+      .footer-link {
+        margin: 0 var(--spacing-sm);
+        margin-bottom: var(--spacing-sm);
+      }
+    }
+
+    /* Animations */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-in.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .stagger-delay-1 {
+      transition-delay: 0.1s;
+    }
+
+    .stagger-delay-2 {
+      transition-delay: 0.2s;
+    }
+
+    .stagger-delay-3 {
+      transition-delay: 0.3s;
+    }
+
+    /* Special Features */
+    .quality-comparison {
+      display: flex;
+      gap: var(--spacing-lg);
+      margin-top: var(--spacing-lg);
+    }
+
+    .quality-box {
+      flex: 1;
+      background-color: var(--color-white);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-lg);
+      box-shadow: var(--shadow-md);
+      transition: var(--transition-standard);
+    }
+
+    .quality-box:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .quality-box h3 {
+      position: relative;
+      padding-bottom: var(--spacing-sm);
+      margin-bottom: var(--spacing-md);
+    }
+
+    .quality-box h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background-color: var(--color-gold);
+    }
+
+    .quality-box ul {
+      list-style-type: disc;
+      padding-left: var(--spacing-lg);
+    }
+
+    .history-timeline {
+      margin-top: var(--spacing-lg);
+    }
+
+    .timeline-item {
+      display: flex;
+      margin-bottom: var(--spacing-md);
+    }
+
+    .timeline-year {
+      font-weight: 700;
+      min-width: 100px;
+    }
+
+    .conclusion-box {
+      background-color: var(--color-white);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-lg);
+      margin-top: var(--spacing-lg);
+      box-shadow: var(--shadow-md);
+      border-left: 4px solid var(--color-gold);
+    }
+
+    /* Back to top button */
+    .back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: var(--color-gold);
+      color: var(--color-white);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition-standard);
+      box-shadow: var(--shadow-md);
+      z-index: 999;
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .back-to-top:hover {
+      background-color: var(--color-gold-dark);
+      transform: translateY(-3px);
+    }
+  </style>
+</head>
+<body>
+  <header class="header" id="header">
+    <div class="container header-container">
+      <div class="logo">
+        <div class="logo-text">トムソンピアノ椅子</div>
+        <div class="logo-subtext">調査報告書</div>
+      </div>
+      <nav class="nav">
+        <ul class="nav-list" id="nav-list">
+          <li class="nav-item"><a href="#introduction" class="nav-link">はじめに</a></li>
+          <li class="nav-item"><a href="#manufacturers" class="nav-link">主要メーカー</a></li>
+          <li class="nav-item"><a href="#quality" class="nav-link">品質評価</a></li>
+          <li class="nav-item"><a href="#history" class="nav-link">製造の歴史</a></li>
+          <li class="nav-item"><a href="#wholesalers" class="nav-link">卸売業者</a></li>
+          <li class="nav-item"><a href="#conclusion" class="nav-link">結論</a></li>
+        </ul>
+        <button class="mobile-menu-btn" id="mobile-menu-btn">
+          <div class="menu-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="row">
+          <div class="col hero-content fade-in">
+            <h1 class="hero-title">ピアノ背もたれ椅子（トムソン椅子）</h1>
+            <p class="hero-subtitle">日本における伝統的なピアノ椅子の詳細な調査報告書</p>
+            <a href="#introduction" class="hero-btn">
+              報告書を読む
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </a>
+          </div>
+          <div class="col fade-in stagger-delay-1">
+            <img src="https://images.pexels.com/photos/164743/pexels-photo-164743.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="トムソンピアノ椅子のイメージ" class="hero-image">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="introduction">
+      <div class="container">
+        <div class="row">
+          <div class="col fade-in">
+            <h2>1. はじめに：トムソンピアノ椅子の理解</h2>
+          </div>
+          <div class="col fade-in stagger-delay-1">
+            <p>トムソン椅子とは、背もたれが付いたピアノ椅子のことであり、日本においては一般的で伝統的なスタイルとして広く認知されています。これらの椅子は、背面に高さ調整機構を備えていることが多く、ノブやレバーを用いて容易に高さを変えることができます。</p>
+            <p>歴史的には、ピアノの付属品として扱われることもあり、数十年前までは製造すれば売れるという時代もあったようです。しかしながら、初期のトムソン椅子の中には、座面が硬いという難点も存在しましたが、現代ではクッション性が向上したモデルも提供されています。</p>
+            <p>「トムソン椅子」という名称の由来については、木工加工技術である「トムソン加工」に由来するという説や、一般的で共通のデザインという意味合いで使用されたという説がありますが、明確な証拠はなく、その語源は依然として不明な点が多いのが現状です。</p>
+            <p>本報告書は、トムソンピアノ椅子に関する詳細な分析を提供することを目的としており、製造メーカー、製造国による品質の差異、製造に関する歴史と価格改定の理由、主要な卸売業者に関するユーザーの具体的な質問に対応します。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="manufacturers">
+      <div class="container">
+        <div class="fade-in">
+          <h2>2. 主要メーカーとそのモデル</h2>
+          <p>トムソン椅子の製造を手掛ける主要なメーカーは複数存在し、それぞれが独自の特徴を持つモデルを提供しています。</p>
+        </div>
+
+        <div class="card-container">
+          <div class="card fade-in">
+            <div class="card-header">
+              <h3 class="card-title">甲南（コウナン）</h3>
+              <p class="card-description">ピアノ付属品の主要メーカー</p>
+            </div>
+            <div class="card-content">
+              <p><strong>主なモデル:</strong> No.5、No.6、No.7S、No.7R、NO5-NEW-BLK</p>
+              <p>豊富なカラーバリエーションを提供し、一部モデルにおいては信頼性の高い日本製であることが特徴です。コスト管理のため脚部のみを中国で生産し、品質にばらつきが出やすい座面や金具を日本で製造するという戦略を採用している例もあります。</p>
+            </div>
+          </div>
+
+          <div class="card fade-in stagger-delay-1">
+            <div class="card-header">
+              <h3 class="card-title">吉澤（ヨシザワ）</h3>
+              <p class="card-description">高品質なピアノ付属品メーカー</p>
+            </div>
+            <div class="card-content">
+              <p><strong>主なモデル:</strong> 5K、5K-BLK、5K-DX、5S</p>
+              <p>仕上がりの美しさや丈夫さが特徴であり、ピアノ教師やチェロ奏者からの信頼も厚いとされています。特にモデル5K-DXは、端までクッションが入っており、長時間の練習にも適した快適な座り心地を提供することで知られています。</p>
+            </div>
+          </div>
+
+          <div class="card fade-in stagger-delay-2">
+            <div class="card-header">
+              <h3 class="card-title">ヤマハ</h3>
+              <p class="card-description">世界的に有名なピアノメーカー</p>
+            </div>
+            <div class="card-content">
+              <p><strong>主なモデル:</strong> No.5、No.5A、No.45、PI5</p>
+              <p>特にNo.5は、基本的なモデルとして広く使用されており、クッション性や安定性に優れ、迷ったらこれを選んでおけば間違いないと言われるほど定番の椅子です。一方で、モデルNo.45は中国製であることが明記されており、日本製を好む購入者は注意が必要です。</p>
+            </div>
+          </div>
+
+          <div class="card fade-in">
+            <div class="card-header">
+              <h3 class="card-title">河合楽器製作所（カワイ）</h3>
+              <p class="card-description">ヤマハと並ぶ大手ピアノメーカー</p>
+            </div>
+            <div class="card-content">
+              <p><strong>主なモデル:</strong> トムソン椅子</p>
+              <p>背もたれ部分の3本のスリットが特徴的なスタイリッシュなデザインで、子供のレッスン用としても推奨されています。仕様としては、黒色の木製で、つまみ式の高さ調整機構を備え、重量は約10kgです。</p>
+            </div>
+          </div>
+
+          <div class="card fade-in stagger-delay-1">
+            <div class="card-header">
+              <h3 class="card-title">名陽木工（メイヨウモッコウ）</h3>
+              <p class="card-description">高品質な日本製ピアノ椅子専門メーカー</p>
+            </div>
+            <div class="card-content">
+              <p><strong>主なモデル:</strong> No.5、DOLCEシリーズ（5Dなど）</p>
+              <p>「ジャパンプライド」を掲げ、全ての製造工程を日本国内で行っていることを強調しています。背もたれ付きピアノ椅子の国内製造台数No.1を誇り、歴史的にも国内で最初に背付きピアノ椅子を製造したメーカーの一つです。</p>
+            </div>
+          </div>
+
+          <div class="card fade-in stagger-delay-2">
+            <div class="card-header">
+              <h3 class="card-title">イトマサ</h3>
+              <p class="card-description">中国製造に移行したピアノ付属品メーカー</p>
+            </div>
+            <div class="card-content">
+              <p><strong>主なモデル:</strong> No.5、No.5B、No.7</p>
+              <p>かつては国内生産を行っていましたが、現在は中国で製造を行っています。厳格な品質管理を行っており、大手ピアノメーカーや電子ピアノメーカーへの付属品供給も行っています。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="fade-in">
+          <h3 class="text-2xl font-bold mb-4">主要メーカーとサンプルモデル比較</h3>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>メーカー</th>
+                  <th>サンプルモデル</th>
+                  <th>主な特徴</th>
+                  <th>製造国</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>甲南</strong></td>
+                  <td>No.5, No.6</td>
+                  <td>豊富なカラーバリエーション、一部日本製モデルあり</td>
+                  <td>日本、中国</td>
+                </tr>
+                <tr>
+                  <td><strong>吉澤</strong></td>
+                  <td>5K, 5K-DX</td>
+                  <td>高品質、高耐久性、長時間の練習に適した座り心地</td>
+                  <td>日本</td>
+                </tr>
+                <tr>
+                  <td><strong>ヤマハ</strong></td>
+                  <td>No.5, No.45</td>
+                  <td>定番モデル、クッション性と安定性に優れる</td>
+                  <td>日本、中国</td>
+                </tr>
+                <tr>
+                  <td><strong>河合楽器製作所</strong></td>
+                  <td>トムソン椅子</td>
+                  <td>スタイリッシュなデザイン、子供のレッスン用にも推奨</td>
+                  <td>日本</td>
+                </tr>
+                <tr>
+                  <td><strong>名陽木工</strong></td>
+                  <td>No.5, DOLCE</td>
+                  <td>全工程日本国内製造、高耐久性、エルゴノミクス設計</td>
+                  <td>日本</td>
+                </tr>
+                <tr>
+                  <td><strong>イトマサ</strong></td>
+                  <td>No.5, No.5B</td>
+                  <td>厳格な品質管理、大手ピアノメーカーにも供給</td>
+                  <td>中国</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="quality">
+      <div class="container">
+        <div class="fade-in">
+          <h2>3. 品質評価：日本と中国の製造</h2>
+        </div>
+
+        <div class="quality-comparison">
+          <div class="quality-box fade-in">
+            <h3>日本製の特徴</h3>
+            <ul>
+              <li>高い品質と丁寧な職人技による製造</li>
+              <li>線が細くスマートで軽量なデザイン</li>
+              <li>頑丈さと高さ調整の容易さが評価されている</li>
+              <li>伝統的な技術と丁寧な仕上げを重視</li>
+              <li>一定以上の品質基準を維持</li>
+            </ul>
+          </div>
+          <div class="quality-box fade-in stagger-delay-1">
+            <h3>中国製の特徴</h3>
+            <ul>
+              <li>メーカーや品質管理体制によって品質に差がある</li>
+              <li>自社工場で徹底した品質管理を実施するメーカーもある</li>
+              <li>一部の製品は頑丈でしっかりとした作りと評価されている</li>
+              <li>コスト効率を重視した製造が行われる傾向</li>
+              <li>日本製と比較して価格競争力がある</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="fade-in">
+          <h3 class="text-2xl font-bold">品質に影響を与える要因</h3>
+        </div>
+
+        <div class="card-container">
+          <div class="card fade-in">
+            <div class="card-header">
+              <h3 class="card-title">素材</h3>
+            </div>
+            <div class="card-content">
+              <p>木材の種類、座面素材（皮革、合成皮革、布地）、金具の品質が椅子の耐久性や快適性に直接影響します。</p>
+            </div>
+          </div>
+          
+          <div class="card fade-in stagger-delay-1">
+            <div class="card-header">
+              <h3 class="card-title">製造技術</h3>
+            </div>
+            <div class="card-content">
+              <p>職人の技術力、部品の接合方法、高さ調整機構の精度などが全体の品質を左右します。</p>
+            </div>
+          </div>
+          
+          <div class="card fade-in stagger-delay-2">
+            <div class="card-header">
+              <h3 class="card-title">品質管理</h3>
+            </div>
+            <div class="card-content">
+              <p>製造場所に関わらず、厳格な品質管理を行っているブランドは、より信頼性の高い製品を提供できる傾向があります。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="history">
+      <div class="container">
+        <div class="fade-in">
+          <h2>4. 製造の歴史と価格改定の経緯</h2>
+        </div>
+
+        <div class="row">
+          <div class="col fade-in">
+            <h3>製造の歴史</h3>
+            <div class="history-timeline">
+              <div class="timeline-item">
+                <div class="timeline-year">1963年:</div>
+                <div>名陽木工がピアノ椅子の製造を開始、地元の楽器メーカーへの供給を行う</div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-year">初期:</div>
+                <div>名陽木工は日本国内で最初に背もたれ付きのピアノ椅子を製造したメーカーの一つとなる</div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-year">過去:</div>
+                <div>ピアノ椅子はピアノのおまけ程度に考えられていた時代もあった</div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-year">近年:</div>
+                <div>ピアノの販売台数の減少や中国製の椅子の台頭により、国内のピアノ椅子専門メーカーの数は減少傾向</div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-year">現在:</div>
+                <div>イトマサのように生産拠点を中国に移転したメーカーも存在</div>
+              </div>
+            </div>
+          </div>
+          <div class="col fade-in stagger-delay-1">
+            <h3>価格改定の理由</h3>
+            <ul>
+              <li>原材料価格の高騰</li>
+              <li>為替レートの変動（円安、元高）</li>
+              <li>一般的な経済情勢の変化</li>
+              <li>製造工程の変更</li>
+              <li>新しい機能を持つモデルの導入</li>
+              <li>ピアノや関連アクセサリー全体の価格の高さ</li>
+            </ul>
+            <p class="mt-4">2007年の時点ですでに、これらの要因がピアノ椅子の価格に影響を与えていることが指摘されています。比較的安価なモデルであっても、値上げの対象となっている例も見られます。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="wholesalers">
+      <div class="container">
+        <div class="fade-in">
+          <h2>5. 主要なピアノ椅子卸売業者</h2>
+          <p>ピアノ椅子を楽器店やその他の小売業者に供給する主要な卸売業者が存在します。</p>
+        </div>
+
+        <div class="card-container">
+          <div class="card fade-in">
+            <div class="card-header">
+              <h3 class="card-title">株式会社甲南</h3>
+            </div>
+            <div class="card-content">
+              <p>自社で製造するピアノ椅子を含むピアノ付属品の卸売業を営んでいます。神戸、浜松、東京に拠点を持ち、全国の主要な楽器店と取引を行っています。</p>
+            </div>
+          </div>
+
+          <div class="card fade-in stagger-delay-1">
+            <div class="card-header">
+              <h3 class="card-title">株式会社吉澤</h3>
+            </div>
+            <div class="card-content">
+              <p>主に製造業者ですが、楽器関連付属品の製造卸売会社として全国的に販売を展開しています。製造から流通までを自社で手がけることで、効率的な事業運営を行っています。</p>
+            </div>
+          </div>
+
+          <div class="card fade-in stagger-delay-2">
+            <div class="card-header">
+              <h3 class="card-title">株式会社アルプス</h3>
+            </div>
+            <div class="card-content">
+              <p>ピアノカバーをはじめとするピアノ付属品の総合卸売商社として事業を展開しており、ピアノ椅子も取り扱っています。複数のメーカーの製品を取り扱うことで、幅広い品揃えを実現しています。</p>
+            </div>
+          </div>
+
+          <div class="card fade-in">
+            <div class="card-header">
+              <h3 class="card-title">輸入ピアノ椅子専門店アップル</h3>
+            </div>
+            <div class="card-content">
+              <p>輸入ピアノ椅子に特化した専門店で、長年にわたり安定した仕入れを行い、ホールや音楽大学、音楽教室などにも供給しています。HIDRAUやANDEXINGERといった高級ヨーロッパブランドのピアノ椅子を輸入しています。</p>
+            </div>
+          </div>
+
+          <div class="card fade-in stagger-delay-1">
+            <div class="card-header">
+              <h3 class="card-title">イトマサ</h3>
+            </div>
+            <div class="card-content">
+              <p>自社製品の製造を主に行っていますが、大手ピアノメーカーや電子ピアノメーカーに付属品を供給していることからも、卸売の側面を持っています。</p>
+            </div>
+          </div>
+
+          <div class="card fade-in stagger-delay-2">
+            <div class="card-header">
+              <h3 class="card-title">その他の卸売業者</h3>
+            </div>
+            <div class="card-content">
+              <p>NETSEAやSuper DeliveryといったBtoBのオンラインプラットフォームでは、楽器やアクセサリーの卸売業者が多数登録されており、ピアノ椅子も取引されています。また、東洋ピアノもピアノ付属品の販売を行っています。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="conclusion">
+      <div class="container">
+        <div class="fade-in">
+          <h2>6. 結論：トムソンピアノ椅子の検討事項</h2>
+          <p>本報告書の分析を通じて、トムソン椅子は日本において確立されたピアノ椅子のスタイルであり、甲南、吉澤、ヤマハ、カワイ、名陽木工、イトマサといった主要メーカーが、それぞれ異なる特徴を持つモデルを提供していることが明らかになりました。</p>
+          <p>製造国による品質の違いについては、一般的に日本製が高い品質を持つと認識されていますが、中国製であっても品質管理が徹底された製品は十分に信頼できる可能性があります。</p>
+          <p>日本のトムソン椅子製造の歴史は、名陽木工のような企業を中心に発展し、経済状況やグローバル競争の変化に対応してきました。価格は原材料費や為替レートなどの影響を受けながら変動しており、これらの椅子は、複数の卸売業者を通じて小売店や消費者に届けられています。</p>
+        </div>
+
+        <div class="conclusion-box fade-in">
+          <h3>購入検討時のポイント</h3>
+          <ul>
+            <li>自身の品質に対する期待や予算に応じて、メーカーの評判や椅子の原産国を考慮する</li>
+            <li>日本製は高品質である一方、価格も高くなる傾向がある</li>
+            <li>中国製は、品質管理体制を確認することで、コストパフォーマンスの高い選択肢となる可能性がある</li>
+            <li>様々なモデルを比較検討し、自身のニーズに合った機能や快適性を持つ椅子を選ぶことが大切</li>
+            <li>価格は、メーカー、モデル、機能、そして購入場所によって変動するため、複数の販売店で比較検討することをお勧め</li>
+          </ul>
+        </div>
+
+        <div class="fade-in">
+          <p>今後の研究課題としては、特定のモデルにおけるユーザーレビューの詳細な分析や、異なるメーカーおよび原産国の製品の比較、日本の市場における各メーカーのシェアや輸入されたトムソン椅子の影響の調査、そしてトムソン椅子の設計と製造技術の進化に関する研究などが考えられます。</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-container">
+      <p class="footer-copyright">© 2025 トムソンピアノ椅子調査報告書. All rights reserved.</p>
+      <ul class="footer-links">
+        <li class="footer-link"><a href="#introduction">はじめに</a></li>
+        <li class="footer-link"><a href="#manufacturers">主要メーカー</a></li>
+        <li class="footer-link"><a href="#quality">品質評価</a></li>
+        <li class="footer-link"><a href="#history">製造の歴史</a></li>
+        <li class="footer-link"><a href="#wholesalers">卸売業者</a></li>
+        <li class="footer-link"><a href="#conclusion">結論</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <div class="back-to-top" id="back-to-top">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
+  </div>
+
+  <script>
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const navList = document.getElementById('nav-list');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenuBtn.classList.toggle('open');
+      navList.classList.toggle('open');
+    });
+
+    // Smooth Scroll for Navigation Links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+        }
+        
+        // Close mobile menu when a link is clicked
+        if (navList.classList.contains('open')) {
+          mobileMenuBtn.classList.remove('open');
+          navList.classList.remove('open');
+        }
+      });
+    });
+
+    // Header Scroll Effect
+    const header = document.getElementById('header');
+    
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Fade-in Animation on Scroll
+    const fadeElements = document.querySelectorAll('.fade-in');
+    
+    function checkFade() {
+      fadeElements.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        const elementVisible = 150;
+        
+        if (elementTop < window.innerHeight - elementVisible) {
+          element.classList.add('active');
+        }
+      });
+    }
+    
+    window.addEventListener('scroll', checkFade);
+    checkFade(); // Check on page load
+
+    // Back to Top Button
+    const backToTopBtn = document.getElementById('back-to-top');
+    
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 500) {
+        backToTopBtn.classList.add('visible');
+      } else {
+        backToTopBtn.classList.remove('visible');
+      }
+    });
+    
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
+</body>
+</html>
